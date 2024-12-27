@@ -1,13 +1,21 @@
 package com.enjoytrip.article;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@ToString
+@Getter
+@Setter
 public class Article {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     @Column(nullable = false)
-    public String title;
+    private String title;
     @Column(nullable = false, columnDefinition = "TEXT")
-    public String content;
+    private String content;
+    @Column(nullable = false)
+    private String username;
 }
