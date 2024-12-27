@@ -6,16 +6,29 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
 </head>
 <body>
+
+    <div th:replace="~{ nav.html::navbar }"></div>
+
     <h2>게시글 페이지</h2>
-    <div>
-        <h4 th:text="${title}">게시글 제목</h4>
-        <p>내용1</p>
+    <div class="card" th:each="article : ${articles}">
+        <img src="https://placehold.co/300">
+        <div>
+            <h4 th:text="${article.title}">게시글 제목</h4>
+            <p th:text="${article.username}">유저</p>
+            <p th:text="${article.content}">내용1</p>
+            <a th:href="@{'/article/detail/' + ${article.id}}">상세보기</a>
+            <a th:href="@{'/article/update/' + ${article.id}}">수정</a>
+            <button th:onclick="fetch('/article?id=[[${article.id}]]', { method : 'DELETE' } )
+                .then(r => r.text())
+                .then(() => {
+                    location.reload();
+                })
+            ">삭제</button>
+        </div>
     </div>
-    <div>
-        <h4>게시글2</h4>
-        <p>내용2</p>
-    </div>
+
 </body>
 </html>
